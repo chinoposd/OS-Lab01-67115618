@@ -1,16 +1,16 @@
 ======================================================
 COE67-XXX Operating Systems - Lab 01 Report
-Name: 
-Student ID: 
+Name: wasutorn angsupanit
+Student ID: 67115618
 ======================================================
 
 1. Hardware Baseline:
-- OS Version:
-- Number of CPU Cores:
-- Total RAM:
+- OS Version: Linux 6.8.0-1052-azure
+- Number of CPU Cores: 2
+- Total RAM: 7.76 GB
 
 2. Observation (from htop during stress test):
-[Write your answer here]
+During the CPU stress test, both available CPU cores were fully utilized. In htop, CPU 0 showed 100.0% usage and CPU 1 also showed 100.0% usage. This shows that the stress test created a heavy workload on both CPU cores.
 
 3. Analysis:
-[Write your answer here]
+It is important to know the OS memory limits and CPU core counts before writing Machine Learning training code because a dataset of 500,000 images can require a large amount of memory and CPU processing power. In this experiment, the Codespace had 2 CPU cores and 7.76 GB of RAM. Knowing these limits helps us design the training program to use the available resources efficiently and avoid running out of memory or making the system too slow.
