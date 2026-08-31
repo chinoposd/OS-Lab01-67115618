@@ -1,0 +1,70 @@
+======================================================
+
+COE67-222 Operating Systems - Lab 04 Report
+
+Name: wasutorn angsupanit
+Student ID: 67115618
+
+======================================================
+
+1. The Deadlock (Phase 2):
+
+In the deadlock_simulation.py script, Model A acquired GPU 0 first and
+then waited for GPU 1. At the same time, Model B acquired GPU 1 first
+and then waited for GPU 0.
+
+Model A could not acquire GPU 1 because it was held by Model B.
+Model B could not acquire GPU 0 because it was held by Model A.
+Therefore, both models were waiting for each other. This created a
+Circular Wait condition and caused a Deadlock.
+
+2. The Solution (Phase 3):
+
+In deadlock_avoidance.py, Model B was changed to request GPU 0 before
+GPU 1, following the same resource ordering as Model A.
+
+This breaks the Circular Wait condition because both models request
+the resources in the same order. Model B cannot hold GPU 1 while
+waiting for GPU 0. One model can acquire both GPUs, finish its work,
+and release the locks before the other model continues.
+
+3. Starvation vs Deadlock (Phase 4):
+
+The final output of the Starvation script is fundamentally different
+from the Deadlock script because the system is still running in the
+Starvation case. The threads are able to continue executing, but one
+thread gets much fewer opportunities to access the shared resource.
+
+In my experiment, Greedy_Model_A acquired the resource 20570 times,
+Greedy_Model_B acquired it 20640 times, while Polite_Model acquired
+it only 296 times.
+
+A process scheduler could use Aging to gradually increase the
+priority of a process that has been waiting for a long time. This
+would give the Polite_Model a better chance to receive CPU time and
+access the shared resource, helping to prevent indefinite waiting.
+
+4. Deadlock Detection & Recovery (Phase 3.3):
+
+The timeout parameter simulated a Deadlock Detection mechanism by
+limiting how long Model A could wait for GPU 1. In this experiment,
+the TIMEOUT value was 2.0 seconds. If Model A could not acquire GPU 1
+within this time, the system considered that a Deadlock had occurred.
+
+When the Deadlock was detected, Model A released GPU 0 and returned.
+This recovery action allowed Model B, which was waiting for GPU 0,
+to acquire the resource and complete its training. As a result, the
+system continued running without requiring a manual Ctrl+C interrupt.
+
+
+Banker's Algorithm Observation:
+
+Currently Available Resources: [5 4 5]
+
+The system was determined to be SAFE with the execution sequence:
+Job_1 -> Job_2 -> Job_0
+
+This means the system has a safe execution path and the OS can grant
+the resource requests without causing a Deadlock.
+
+======================================================
