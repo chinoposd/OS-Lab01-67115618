@@ -1,5 +1,5 @@
 ======================================================
-COE67-XXX Operating Systems - Lab 01 Report
+COE67-222 Operating Systems - Lab 01 Report
 Name: wasutorn angsupanit
 Student ID: 67115618
 ======================================================
