@@ -1,0 +1,65 @@
+======================================================
+
+COE67-222 Operating Systems - Lab 03 Report
+
+Name: wasutorn angsupanit
+
+Student ID: 67115618
+
+======================================================
+
+1. The Race Condition (Phase 2):
+
+In the race_condition.py script, the final weight is less than the expected
+value because both threads access and update the same shared variable at
+the same time. The update operation consists of Read -> Modify -> Write,
+which is not atomic.
+
+The OS Scheduler can pause one thread after it reads the shared value and
+then switch to the other thread. The second thread can read the same old
+value and update it. When the first thread continues, it can overwrite the
+new value with its old calculation. Therefore, some updates are lost and
+the actual value becomes less than the expected value.
+
+In my experiment, the expected value was 200, but the actual value was 100.
+This shows that a Race Condition occurred.
+
+2. Mutex vs. Semaphore (Phase 3):
+
+- What is the specific job of the mutex?
+
+The mutex protects the critical section of the shared buffer. It makes sure
+that only one thread can access or modify the buffer and the index variables
+at a time. This prevents the Producer and Consumer from modifying shared
+data at the same time.
+
+- What is the specific job of the empty and full semaphores?
+
+The empty semaphore counts the number of empty slots available in the
+buffer. The Producer must acquire an empty slot before writing data.
+
+The full semaphore counts the number of items currently stored in the
+buffer. The Consumer must acquire a full slot before reading data.
+
+We cannot use only a Mutex for everything because a Mutex only provides
+mutual exclusion. It does not keep track of how many buffer slots are empty
+or how many items are available. The semaphores provide this counting and
+synchronization function.
+
+3. Deadlock Awareness:
+
+If we swap the two lines so that mutex.acquire() is called before
+empty.acquire(), a potential deadlock can occur when the buffer is
+completely full.
+
+The Producer would acquire the mutex first and then wait at empty.acquire()
+because there are no empty slots. At the same time, the Consumer needs the
+same mutex to remove an item from the full buffer and then release an empty
+slot.
+
+Because the Producer is holding the mutex while waiting for an empty slot,
+the Consumer cannot acquire the mutex. Therefore, the Producer waits for
+the Consumer, while the Consumer waits for the mutex held by the Producer.
+This creates a deadlock.
+
+======================================================
